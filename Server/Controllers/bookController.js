@@ -100,9 +100,6 @@ const getAllBooksByGrade = async (req, res) => {
     const { id } = req.params
     // getGradeById(id)//???
 
-    const booksForGrade = Book.find({
-        grades: { $in: [id] }  ///???????????
-    }).lean().populate("grades")
     if (!booksForGrade?.length) {
         return res.status(400).json({ message: 'There are no books for this grade' })
     }
