@@ -36,8 +36,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['User', 'Admin'],
         defult: 'user'
+    },
+    confirm: {
+        type: Boolean
     }
-
 
 }, {})
 

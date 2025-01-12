@@ -13,6 +13,13 @@ router.get('/',verifyJWT,admirMiddleware,userController.getAllUser)
 
 router.put('/',userController.updateUser)
 
+router.delete('/:id',userController.deleteUser)
+
+router.put('/confirm',userController.confirmUser)
+
 
 
 module.exports=router
+
+
+

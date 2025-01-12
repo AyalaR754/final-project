@@ -96,7 +96,30 @@ const login = async (req, res) => {
 
      
 }
+const confirmUser = async (req, res) => {
+   const {id} = req.params
+   const user = await User.findById(id).exec()
+   if (!user)
+       return res.status(400).json({ message: 'No user found' })
+   user.confirm = !user.confirm
+   const updateUser = await user.save()
+   const users = await User.find().lean()
+   res.json(users)
+}
+
+const deleteUser = async (req, res) => {
+    const { id } = req.params
+    const user = await User.findById(id)
+    if (!user)
+        return res.status(400).json({ message: 'No user found' })
+    const result = await user.deleteOne()
+    const users = await User.find().lean()
+    if (!users?.length)
+        return res.status(400).json({ message: 'No users found' })
+    res.json(users)
+   
+}
 
 
 
-module.exports = {register,login,getAllUser,updateUser}
+module.exports = {register,login,getAllUser,updateUser,deleteUser,confirmUser}
