@@ -8,14 +8,29 @@ const fileSchema = new mongoose.Schema({
     {      
     type:String,
     lowercase:true,
-    required:true
-    
+    required:true 
     },
-// ?????????????????????????   what file contain    ?????????????????????????????????????
-    file:
+    path:{
+        type:String,
+        lowercase:true,
+        required:true 
+
+    },
+    type:
+    {
+        type:String,
+        required:true,
+        enum: ["pdf", "audio", "image", "video" ,"mp3", "wav","txt", "doc","docx",]
+    },
+    size:
     {
         type:String,
         required:true
+    },
+ title: {
+        type:mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref:"Title"
     }
 },{})
 

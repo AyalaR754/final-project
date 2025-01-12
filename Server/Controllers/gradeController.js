@@ -57,7 +57,7 @@ const deleteGrade = async (req, res) => {
     const grade = await Grade.findById(id)
     if (!grade)
         return res.status(400).json({ message: 'No grade found' })
-    const result = await grade.deleteOne()
+    const result = await Grade.deleteOne()
     const grades = await Grade.find().lean()
     if (!grades?.length)
         return res.status(400).json({ message: 'No grades found' })
