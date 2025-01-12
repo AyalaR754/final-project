@@ -5,7 +5,7 @@ const titleController=require("../Controllers/titleController")
 
 router.post('/',titleController.createNewTitle)
 
-router.get('/',titleController.getAllTitles)
+router.get('/:id',titleController.getAllTitles)
 
 router.get('/:id',titleController.getTitleById)
 
