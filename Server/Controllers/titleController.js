@@ -2,37 +2,41 @@ const Title = require("../models/Title")
 const File = require("../models/File")
 
 
-const createNewTitle= async (req, res) => {
-    const { name, book } = req.body
+const createNewTitle = async (req, res) => {
+    const { name, book } = req.body;
 
-    if (!book) { // Confirm data
-        return res.status(400).json({ message: 'filed product is required' })
+    if (!book || !name) {
+        return res.status(400).json({ message: 'Book and name are required' });
     }
-    if (!name) {
-        return res.status(400).send("name is required")
-    }
-    const existTitle = await Title.findOne({ name: name ,book:book});
+
+    const existTitle = await Title.findOne({ name, book }).exec();
     if (existTitle) {
-        return res.status(400).send("invalid name")
+        return res.status(409).json({ message: 'Title already exists for this book' });
     }
-    const title = await Title.create({ name, book })
 
+    const title = await Title.create({ name, book });
     if (!title) {
-        return res.status(201).send("invalid book")
+        return res.status(500).json({ message: 'Failed to create title' });
     }
-    return res.status(201).json({ message: 'you add title to your book' })
-}
+
+    res.status(201).json({ message: 'Title created successfully', title });
+};
 
 //הנוכחי book  להביא את כל הכותרות ל 
-const getAllTitels = async (req, res) => {
-    const id = req.book._id
-    const allTitels = await Title.find({ book: id }).populate("book")
-    // If no titles
-    if (!allTitels?.length) {
-        return res.status(400).json({ message: 'No titles found' })
+const getAllTitles = async (req, res) => {
+    const { bookId } = req.params;
+
+    if (!bookId) {
+        return res.status(400).json({ message: 'Book ID is required' });
     }
-    res.json(allTitels)
-}
+
+    const titles = await Title.find({ book: bookId }).populate('book').exec();
+    if (!titles.length) {
+        return res.status(200).json({ message: 'No titles found' });
+    }
+
+    res.status(200).json(titles);
+};
 //titlebybook
 
 
@@ -40,12 +44,10 @@ const getTitleById = async (req, res) => {
     const { id } = req.params
     const title = await Title.findById(id).lean()
     if (!title) {
-        return res.status(400).json({ message: 'No title found' })
+        return res.status(404).json({ message: 'No title found' })
     }
-    res.json(title)
+    res.status(200).json(title);
 }
-
-
 
 const deleteTitle = async (req, res) => {
     const { id } = req.params
