@@ -90,20 +90,11 @@ const login = async (req, res) => {
         phone: foundUser.phone,
         roles:foundUser.roles
     }
-
-
-    if (NewUser.roles==="user")
-       {
         
+        const accessToken = jwt.sign(NewUser, process.env.ACCESS_TOKEN_SECRET)
+        res.json({ accessToken: accessToken })
 
-        const accessTokenUser = jwt.sign(NewUser, process.env.ACCESS_TOKEN_SECRET)
-        res.json({ accessTokenUser: accessTokenUser })
-
-       }
-       else
-       {
-       const accessTokenMannage = jwt.sign(NewUser, process.env.ACCESS_TOKEN_SECRET)
-       res.json({ accessTokenMannage: accessTokenMannage })}
+     
 }
 
 

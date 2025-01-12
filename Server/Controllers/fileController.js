@@ -1,4 +1,4 @@
-const File = require("../models/File");
+const File = require("../models/File")
 
 // יצירת קובץ חדש
 const createFile = async (req, res) => {
@@ -92,5 +92,4 @@ const deleteFile = async (req, res) => {
     res.json(files)
 };
 
-module.exports = {
-  createFile,getFilesByTitle,getFileById,updateFile,deleteFile};
+module.exports = {createFile,getFilesByTitle,getFileById,updateFile,deleteFile};

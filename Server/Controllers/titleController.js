@@ -76,4 +76,4 @@ const deleteTitle = async (req, res) => {
 
 
 
-module.exports = { createNewTitle, getAllTitels, getTitleById, deleteTitle }
+module.exports = { createNewTitle, getAllTitles, getTitleById, deleteTitle }
