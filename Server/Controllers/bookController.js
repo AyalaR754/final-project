@@ -1,7 +1,9 @@
 const Book = require("../models/Book")
 const Grade = require("../models/Grade")
+const Title = require("../models/Title")
 
-const titleController=require("../Controllers/titleController")
+
+const titleController = require("../Controllers/titleController")
 
 
 const createNewBook = async (req, res) => {
@@ -16,15 +18,15 @@ const createNewBook = async (req, res) => {
     if (existBook) {
         return res.status(400).send("invalid name")
     }
-
+    console.log(grades)
     grades ? gradesArr = grades.split(',') : ""
     // titles ? titlesArr = titles.split(',') : ""
+    console.log(gradesArr)
+    // const resGrade = gradesArr.map((ele) => Grade.find({ name: ele._id }))
+    // console.log(resGrade)
+    // const resTitle= titlesArr.map((ele) =>Title.find({ name: ele._id }))
 
-    const resGrade = gradesArr.map((ele) => Grade.find({ name: ele }))
-
-    // const resTitle= titlesArr.map((ele) =>Title.find({ name: ele }))
-
-    const book = await Book.create({ name, resGrade, image });
+    const book = await Book.create({ name, grades:gradesArr, image });
 
     if (!book.length > 0) {
         return res.status(201).send("invalid book")
@@ -59,11 +61,11 @@ const updateBook = async (req, res) => {
     const gradesArr = grades ? grades.split(',') : "";
     // const titlesArr = titles ? titles.split(',') : ""  
 
-    const resGrade = gradesArr.map((ele) => Grade.find({ name: ele }))
+    //const resGrade = gradesArr.map((ele) => Grade.find({ name: ele }))
 
     book.name = name
     book.image = image
-    book.grades = resGrade
+    book.grades = gradesArr
     // book.titles = titlesArr
 
     const updateBook = await book.save()
@@ -100,7 +102,7 @@ const getAllBooksByGrade = async (req, res) => {
 
     const booksForGrade = Book.find({
         grades: { $in: [id] }  ///???????????
-    }).lean().populate("Grade")
+    }).lean().populate("grades")
     if (!booksForGrade?.length) {
         return res.status(400).json({ message: 'There are no books for this grade' })
     }
