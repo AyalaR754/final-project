@@ -13,11 +13,11 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.static("public"))
 
-app.use("/user",require("./routes/user.js"))
-app.use("/book",require("./routes/book.js"))
-app.use("/grade",require("./routes/grade.js"))
-app.use("/title",require("./routes/title.js"))
-app.use("/file",require("./routes/file.js"))
+app.use("/api/user",require("./routes/user.js"))
+app.use("/api/book",require("./routes/book.js"))
+app.use("/api/grade",require("./routes/grade.js"))
+app.use("/api/title",require("./routes/title.js"))
+app.use("/api/file",require("./routes/file.js"))
 
 
 app.get('/',(req,res)=>{ res.send("this is the home page")})
