@@ -2,18 +2,19 @@ const express=require("express")
 const router=express.Router()
 const gradeController=require("../Controllers/gradeController")
 const verifyJWT=require("../middleware/verifyJWT")
+const admirMiddleware=require("../middleware/admirMiddleware")
 
 
 
-router.post('/',verifyJWT,gradeController.creatNewGrade)
+router.post('/',verifyJWT,admirMiddleware,gradeController.creatNewGrade)
 
 router.get('/:id',gradeController.getGradeById)
 
 router.get('/',gradeController.getAllGrade)
 
-router.put('/',verifyJWT,gradeController.updateGrade)
+router.put('/',verifyJWT,admirMiddleware,gradeController.updateGrade)
 
-router.delete('/:id',verifyJWT,gradeController.deleteGrade)
+router.delete('/:id',verifyJWT,admirMiddleware,gradeController.deleteGrade)
 
 
 module.exports=router
