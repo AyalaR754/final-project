@@ -1,5 +1,5 @@
 const Book = require("../models/Book")
-const Title = require("../models/Title")
+const Grade = require("../models/Grade")
 
 const titleController=require("../Controllers/titleController")
 
@@ -12,7 +12,7 @@ const createNewBook = async (req, res) => {
     if (!name) {
         return res.status(400).send("name is required")
     }
-    const existBook = await Book.findOne({ name: name }).populate("Grade");
+    const existBook = await Book.findOne({ name: name }).populate("grades");
     if (existBook) {
         return res.status(400).send("invalid name")
     }
@@ -33,7 +33,7 @@ const createNewBook = async (req, res) => {
 }
 
 const getAllBooks = async (req, res) => {
-    const books = await Book.find().lean().populate("Grade")
+    const books = await Book.find().lean().populate("grades")
     if (!books?.length) {
         return res.status(400).json({ message: 'No books found' })
     }
@@ -42,7 +42,7 @@ const getAllBooks = async (req, res) => {
 
 const getBookById = async (req, res) => {
     const { id } = req.params
-    const book = await Book.findById(id).lean().populate("Grade")
+    const book = await Book.findById(id).lean().populate("grades")
     if (!book) {
         return res.status(400).json({ message: 'No book found' })
     }
@@ -52,7 +52,7 @@ const getBookById = async (req, res) => {
 const updateBook = async (req, res) => {
     const { _id, name, grades, image } = req.body
     // Confirm data
-    const book = await Book.findById(_id).populate("Grade").exec()
+    const book = await Book.findById(_id).populate("grades").exec()
     if (!book) {
         return res.status(400).json({ message: 'Book not found' })
     }
@@ -67,7 +67,7 @@ const updateBook = async (req, res) => {
     // book.titles = titlesArr
 
     const updateBook = await book.save()
-    const books = await Book.find().lean().populate("Grade")
+    const books = await Book.find().lean().populate("grades")
     if (!books?.length) {
         return res.status(400).json({ message: 'No books found' })
     }
@@ -87,7 +87,7 @@ const deleteBook = async (req, res) => {
         await Promise.all(titles.map((title) => title.deleteOne())); // מחיקת כל הכותרות בו-זמנית
     }
     const result = await book.deleteOne()
-    const books = await Book.find().lean().populate("Grade")
+    const books = await Book.find().lean().populate("grades")
     if (!books?.length) {
         return res.status(400).json({ message: 'No books found' })
     }

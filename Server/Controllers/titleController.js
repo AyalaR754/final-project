@@ -24,13 +24,13 @@ const createNewTitle = async (req, res) => {
 
 //הנוכחי book  להביא את כל הכותרות ל 
 const getAllTitles = async (req, res) => {
-    const { bookId } = req.params;
+    const { id } = req.params;
 
-    if (!bookId) {
+    if (!id) {
         return res.status(400).json({ message: 'Book ID is required' });
     }
 
-    const titles = await Title.find({ book: bookId }).populate('book').exec();
+    const titles = await Title.find({ book: id }).populate('book').exec();
     if (!titles.length) {
         return res.status(200).json({ message: 'No titles found' });
     }
@@ -65,7 +65,7 @@ const deleteTitle = async (req, res) => {
     if (result.deletedCount === 0) {
         return res.status(400).json({ message: 'Failed to delete title' });
     }
-    const titles = await Title.find().lean().populate("Book")
+    const titles = await Title.find().lean().populate("book")
     if (!titles?.length) {
         return res.status(400).json({ message: 'No titles found' })
     }
