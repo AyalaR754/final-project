@@ -1,4 +1,5 @@
 const Title = require("../models/Title")
+const File = require("../models/File")
 
 
 const createNewTitle= async (req, res) => {
@@ -52,11 +53,16 @@ const deleteTitle = async (req, res) => {
     if (!title) {
         return res.status(400).json({ message: 'title not found' })
     }
-    // const res = getAllFiles()
-    // if (res?.length > 0) {
-    //     res.forEach(ele => { deleteTitle(ele._id) })
-    // }
-    const result = await Title.deleteOne()
+    const files = await File.find({ title: title._id }).exec();
+    if (res?.length > 0) {
+        for (let file of files) {
+            await File.deleteOne({ _id: file._id });  // מחיקת קובץ אחד אחרי השני - ***
+        }
+    }
+    const result = await Title.deleteOne({ _id: id });  // ***
+    if (result.deletedCount === 0) {
+        return res.status(400).json({ message: 'Failed to delete title' });
+    }
     const titles = await Title.find().lean().populate("Book")
     if (!titles?.length) {
         return res.status(400).json({ message: 'No titles found' })

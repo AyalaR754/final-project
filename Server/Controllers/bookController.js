@@ -1,4 +1,6 @@
 const Book = require("../models/Book")
+const Title = require("../models/Title")
+
 const titleController=require("../Controllers/titleController")
 
 
@@ -78,9 +80,11 @@ const deleteBook = async (req, res) => {
     if (!book) {
         return res.status(400).json({ message: 'book not found' })
     }
-    const resTitle = titleController.getAllTitels()
-    if (resTitle?.length > 0) {
-        resTitle.forEach(ele => { titleController.deleteTitle(ele._id) })
+
+    const titles = await Title.find({ book: id }).exec();
+    if (titles.length > 0) {
+        // מחיקת כל הכותרות שקשורות לספר *** (שינוי)
+        await Promise.all(titles.map((title) => title.deleteOne())); // מחיקת כל הכותרות בו-זמנית
     }
     const result = await book.deleteOne()
     const books = await Book.find().lean().populate("Grade")
