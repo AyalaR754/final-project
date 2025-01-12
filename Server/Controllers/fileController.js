@@ -42,7 +42,7 @@ const getFileById = async (req, res) => {
     // חיפוש הקובץ לפי מזהה
     const file = await File.findById(id).populate("title");
     if (!file) {
-      return res.status(404).json({ message: "קובץ לא נמצא" });
+      return res.status(404).json({ message: "File not found" });
     }
     res.status(200).json(file);
   } catch (error) {
@@ -59,15 +59,15 @@ const updateFile = async (req, res) => {
     // חיפוש הקובץ לפי מזהה
     const file = await File.findById(id);
     if (!file) {
-      return res.status(404).json({ message: "קובץ לא נמצא" });
+      return res.status(404).json({ message: "File not found" });
     }
 
     // עדכון שדות
-    if (name) file.name = name;
-    if (path) file.path = path;
-    if (type) file.type = type;
-    if (size) file.size = size;
-    if (title) file.title = title;
+    file.name = name;
+    file.path = path;
+    file.type = type;
+    file.size = size;
+    file.title = title;
 
     // שמירת השינויים
     const updatedFile = await file.save();
