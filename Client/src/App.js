@@ -15,13 +15,10 @@ import { Menubar } from 'primereact/menubar';
 import { useNavigate } from 'react-router-dom';
 //import userName from './Context'
 
-import Users from './Components/Users'
 import { Link, Route, Routes } from 'react-router-dom'
 
-const LazyPost = React.lazy(() => import('./Components/Posts'))
-const LazyTodo = React.lazy(() => import('./Components/Todos'))
-const LazyUser = React.lazy(() => import('./Components/Users'))
-const LazyHome= React.lazy(() => import('./Components/Home'))
+const LazyGrade = React.lazy(() => import('./Components/Grades'))
+const LazyHome = React.lazy(() => import('./Components/Home'))
 
 
 //import App from './App';
@@ -38,25 +35,11 @@ function App() {
       },
 
         {
-            label: 'Users',
+            label: 'Grades',
             icon: 'pi pi-user',
             command: () => {
-             navigate('./Users')
+             navigate('./Grades')
           }
-        },
-        {
-          label: 'Todos',
-          icon: 'pi pi-calendar-times',
-          command: () => {
-            navigate('./Todos')
-         }
-      },
-        {
-            label: 'Posts',
-            icon: 'pi pi-envelope',
-            command: () => {
-              navigate('./Posts')
-           }
         }
     ];
   return (
@@ -69,10 +52,7 @@ function App() {
  
        <Routes> 
        <Route path='/Home' element={<Suspense fallback="loading..."><LazyHome  /></Suspense>} />
-       <Route path='/Users' element={<Suspense fallback="loading..."><LazyUser  /></Suspense>} />
-          <Route path='/Todos' element={<Suspense fallback="loading..."><LazyTodo /></Suspense>} />
-          <Route path='/Posts' element={<Suspense fallback="loading..."><LazyPost /></Suspense>} />
-  
+       <Route path='/Grades' element={<Suspense fallback="loading..."><LazyGrade  /></Suspense>} />
        </Routes>
     </div>
   );

@@ -17,7 +17,7 @@ const Grade = (props) => {
         props.grade.name= nameRef.current.value?nameRef.current.value:props.grade.title,
         props.grade.image=imageRef.current.value?imageRef.current.value:props.grade.body
     try {
-        const res = await axios.put('http://localhost:7000/api/grade', grade)
+        const res = await axios.put('http://localhost:7000/api/grade', props.grade)
         if (res.status === 200) {
            
             console.log("res.data",res.data);
@@ -30,31 +30,46 @@ const Grade = (props) => {
     
     //************delete
     const deleteGrade = async (id) => {
-        const res = await axios.delete(`http://localhost:7000/grade/${id}`)
-      
+        const res = await axios.delete(`http://localhost:7000/api/grade/${id}`)
         props.setGradesData(res.data)
         }
     
 
     //***********return
 
+    const footer = (
+
+        <div className="card flex flex-wrap gap-2 justify-content-center">
+
+            <Button icon="pi pi-times" label="Delete" onClick={() => { deleteGrade(props.grade._id) }} />
+
+            <Button label="Update" icon="pi pi-pencil" onClick={() => setVisible(true)} />
+
+            {/* <GradesUpdate VisibleUpdatGrade={VisibleUpdatGrade} setVisibleUpdatGrade={setVisibleUpdatGrade} updateGrade={updateGrade} grade={props.grade} /> */}
+            <UpdateGrade updateGrade={updateGrade} setVisible={setVisible}  visible={visible} grade={props.grade}/>
+
+
+        </div>
+
+
+
+    );
     return (
         <>
+            <div className="card flex flex-wrap gap-2 justify-content-center">
 
-            <br />
-
-            <Card title={props.grade.name}>
-                <p className="m-0">
-                <div className="card flex flex-wrap gap-2 justify-content-center">
-                    <Button icon="pi pi-times" aria-label="Filter" onClick={() => deleteGrade(props.grade._id)} />
-                    <Button icon="pi pi-pencil" onClick={() => setVisible(true)} />
-                    </div>
-                    <UpdateGrade updateGrade={updateGrade} setVisible={setVisible}  visible={visible} grade={props.grade}/>
-                </p>
-            </Card>
-            <br />
+                <div className="card">
+                    <Card title={props.grade.name} footer={footer} className="md:w-25rem" >
+                        <p className="m-0">
+                            {/* {props.grade.image} */}
+                        </p>
+                    </Card>
+                </div>
+            </div>
         </>
+
     )
+
 }
     
 

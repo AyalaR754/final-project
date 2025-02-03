@@ -3,11 +3,24 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 
+import { AutoComplete } from "primereact/autocomplete";
 
 const CreateGrade=(props)=>{
+    const [selectedItem, setSelectedItem] = useState(null);
+    const items = ['first grade','second grade','third grade','fourth grade','fifth grade','sixth grade','seventh grade','eighth grade'];
+
+   const [filteredItems, setFilteredItems] = useState(null);
 
 const {createGrade}=props
 const {visibleCreatGrade}=props
+
+const searchItems = (event) => {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo purposes we filter at client side
+    let query = event.query;
+    // let _filteredItems = [];
+
+    setFilteredItems(items);
+}
 
     const nameRef = useRef("")
     const imageRef = useRef("")
@@ -24,7 +37,8 @@ return(
                         <label htmlFor="Gradename" className="text-primary-50 font-semibold">
                         name
                         </label>
-                        <InputText id="Gradename" label="Gradename" className="bg-white-alpha-20 border-none p-3 text-primary-50" ref={nameRef}></InputText>
+                        <AutoComplete value={selectedItem} suggestions={filteredItems} completeMethod={searchItems}
+                            virtualScrollerOptions={{ itemSize: 38 }}  dropdown onChange={(e) => setSelectedItem(e.value)} />
                     </div>
                     <div className="inline-flex flex-column gap-2">
                         <label htmlFor="Gradename" className="text-primary-50 font-semibold">

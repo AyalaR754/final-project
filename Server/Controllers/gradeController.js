@@ -38,7 +38,9 @@ const getGradeById = async (req, res) => {
 // update
 const updateGrade = async (req, res) => {
     const { _id, name, image } = req.body;
+    console.log( _id, name, image );
     const grade = await Grade.findById(_id);
+    console.log(grade);
     if (!grade) {
         return res.status(400).json({ message: `Grade with ID ${_id} not found` });
     }
