@@ -15,7 +15,7 @@ const UpdateGrade = (props) => {
 
     const [filteredItems, setFilteredItems] = useState(null);
 
-    const { updateGrade } = props
+    const { updateGrade } = props.updateGrade
     const { visible } = props
 
 

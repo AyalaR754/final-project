@@ -38,6 +38,9 @@ const getGradeById = async (req, res) => {
 // update
 const updateGrade = async (req, res) => {
     const { _id, name, image } = req.body;
+    if (!name) {
+        return res.status(400).json({ message: "Name is required" });
+    }
     console.log( _id, name, image );
     const grade = await Grade.findById(_id);
     console.log(grade);

@@ -54,12 +54,15 @@ const Grade = (props) => {
 
 
     );
+    const header = (
+        <img alt="Card" src="/pictures/1.png" />
+    );
     return (
         <>
             <div className="card flex flex-wrap gap-2 justify-content-center">
 
                 <div className="card">
-                    <Card title={props.grade.name} footer={footer} className="md:w-25rem" >
+                    <Card title={props.grade.name} footer={footer} header={header} className="md:w-25rem" >
                         <p className="m-0">
                             {/* {props.grade.image} */}
                         </p>
@@ -74,3 +77,5 @@ const Grade = (props) => {
     
 
 export default Grade
+
+
