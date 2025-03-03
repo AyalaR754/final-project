@@ -26,14 +26,14 @@ const getAllGrade = async (req, res) => {
 };
 
 // read by id
-const getGradeById = async (req, res) => {
-    const { id } = req.params;
-    const grade = await Grade.findById(id).lean();
-    if (!grade) {
-        return res.status(400).json({ message: `Grade with ID ${id} not found` });
-    }
-    res.json(grade);
-};
+// const getGradeById = async (req, res) => {
+//     const { id } = req.params;
+//     const grade = await Grade.findById(id).lean();
+//     if (!grade) {
+//         return res.status(400).json({ message: `Grade with ID ${id} not found` });
+//     }
+//     res.json(grade);
+// };
 
 // update
 const updateGrade = async (req, res) => {
@@ -86,4 +86,4 @@ const deleteGrade = async (req, res) => {
     res.json(grades);
 };
 
-module.exports = { creatNewGrade, getAllGrade, getGradeById, updateGrade, deleteGrade };
+module.exports = { creatNewGrade, getAllGrade, updateGrade, deleteGrade };//,getGradeById

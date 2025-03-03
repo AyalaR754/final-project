@@ -15,7 +15,7 @@ const UpdateGrade = (props) => {
 
     const [filteredItems, setFilteredItems] = useState(null);
 
-    const { updateGrade } = props.updateGrade
+    const { updateGrade } = props
     const { visible } = props
 
 
@@ -25,7 +25,7 @@ const UpdateGrade = (props) => {
 
     const searchItems = (event) => {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo purposes we filter at client side
-        let query = event.query;
+        // let query = event.query;
         // let _filteredItems = [];
 
         setFilteredItems(items);
