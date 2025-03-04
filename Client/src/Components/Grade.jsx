@@ -119,7 +119,7 @@ const Grade = (props) => {
 
     const footer = (
 
-        <div className="card flex flex-wrap gap-2 justify-content-center">
+        <div  className="card flex flex-wrap gap-2 justify-content-center">
 
             <Button icon="pi pi-times" label="Delete" onClick={() => { deleteGrade(props.grade._id) }} />
 
@@ -142,7 +142,9 @@ const Grade = (props) => {
             <div className="card flex flex-wrap gap-2 justify-content-center">
 
                 <div className="card">
-                    <Card title={props.grade.name} footer={footer} header={header} className="md:w-25rem" >
+                    <Card backgroundimage={"./pictures/1.png"} title={props.grade.name} footer={footer} header={header}  className="md:w-25rem" >
+                    
+
                         <p className="m-0">
                             {/* {props.grade.image} */}
                         </p>
