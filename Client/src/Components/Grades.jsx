@@ -4,7 +4,7 @@ import { Button } from 'primereact/button';
 import 'primeicons/primeicons.css';
 import axios from 'axios'
 import Grade from "./Grade"
-import CreatGrade from "./CreatGrade"
+import CreatGrade from "./GradeCreat"
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 
 const Grades = () => {

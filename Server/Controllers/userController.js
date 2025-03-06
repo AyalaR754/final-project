@@ -21,12 +21,12 @@ const getAllUser = async (req, res) => {
 //update
 
 const updateUser = async (req, res) => {
-    const { _id, username, name, phone, email } = req.body
+    const { _id, name, phone, email } = req.body
     const user = await User.findById(_id)
     if (!user)
         return res.status(400).json({ message: 'No user found' })
     user.name = name
-    user.username = username
+    // user.username = username
     user.email = email
     user.phone = phone
     const updateUser = await user.save()
@@ -41,22 +41,22 @@ const updateUser = async (req, res) => {
 
 const register = async (req, res) => {
     
-    const { username, password, name, email, phone } = req.body
+    const {  password, name, email, phone } = req.body
     
-    if (!name || !username || !password) {
+    if (!name || !password||!email) {
         return res.status(400).json({ message: 'All fields are required' })
     }
-    const duplicate = await User.findOne({ username: username }).lean()
+    const duplicate = await User.findOne({ email: email }).lean()
     if (duplicate) {
-        return res.status(409).json({ message: "Duplicate username" })
+        return res.status(409).json({ message: "Duplicate email" })
     }
     const hashedpwd = await bcrypt.hash(password, 10)
-    const userobject = { name, email, username, phone, password: hashedpwd }
+    const userobject = { name, email, phone, password: hashedpwd }
 
     const user = await User.create(userobject)
     if (user) {
         return res.status(201).json({
-            message: `New user ${user.username} created` })
+            message: `New user ${user.email} created` })
     } else {
         return res.status(400).json({ message: 'Invalid user received' })
     }
@@ -69,10 +69,10 @@ const register = async (req, res) => {
 
 //login
 const login = async (req, res) => {
-    const { username, password } = req.body
-    if (!username || !password)
+    const { email, password } = req.body
+    if (!email || !password)
         return res.status(400).json({ message: 'All fields are required' })
-    const foundUser = await User.findOne({ username }).lean()
+    const foundUser = await User.findOne({ email }).lean()
     console.log(foundUser)
     if (!foundUser) {
 
@@ -85,10 +85,10 @@ const login = async (req, res) => {
     const NewUser = {
         _id: foundUser._id,
         name: foundUser.name,
-        username: foundUser.username,
         email: foundUser.email,
         phone: foundUser.phone,
         roles:foundUser.roles
+        
     }
         
         const accessToken = jwt.sign(NewUser, process.env.ACCESS_TOKEN_SECRET)

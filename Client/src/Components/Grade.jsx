@@ -3,10 +3,11 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 
-import UpdateGrade from "./UpdateGrade"
+import UpdateGrade from "./GradeUpdate"
 
 import 'primeicons/primeicons.css';
 import axios from 'axios'
+import '../Grade.css';
 
 const Grade = (props) => {
     const [visible, setVisible] = useState(false);

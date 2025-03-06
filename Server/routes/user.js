@@ -9,7 +9,9 @@ router.post('/register',userController.register)
 
 router.post('/login',userController.login)
 
-router.get('/',verifyJWT,admirMiddleware,userController.getAllUser)
+router.get('/',userController.getAllUser)
+
+
 
 router.put('/',userController.updateUser)
 

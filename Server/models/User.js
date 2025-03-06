@@ -11,14 +11,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    username:
-    {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true
-    },
+    // username:
+    // {
+    //     type: String,
+    //     required: true,
+    //     unique: true,
+    //     lowercase: true,
+    //     trim: true
+    // },
 
     email:
     {
@@ -37,11 +37,17 @@ const userSchema = new mongoose.Schema({
         enum: ['User', 'Admin'],
         defult: 'user'
     },
+
     confirm: {
         type: Boolean
+        ,defult: false 
     }
+    
 
-}, {})
+}, {
+timestamps:true
+
+})
 
 
 module.exports = mongoose.model("User", userSchema)
