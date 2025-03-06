@@ -124,7 +124,7 @@ function App() {
     <div className="user-container">
       <span className="user-name">{name}</span>
       <Button
-        icon="pi pi-caret-down"
+        icon="pi pi-angle-down"
         className="user-dropdown"
         onClick={() => setMenuVisible(!menuVisible)}
         style={{ marginLeft: '5px', background: 'transparent', border: 'none' }}
